@@ -25,18 +25,23 @@ galleryEl.addEventListener("click", onPictureClick);
 
 function onPictureClick(e) {
   e.preventDefault();
-  console.log(e.target.nodeName);
-  if (e.target.nodeName !== "IMG") {
+  if (!e.target.classList.contains("gallery__image")) {
     return;
-  } else {
-    const instance = basicLightbox.create(
-      `<img src="${e.target.dataset["source"]}"/>`
-    );
-
-    instance.show();
-
-    window.addEventListener("keydown", function () {
-      instance.close();
-    });
   }
+  openModal(e);
+}
+
+function openModal(e) {
+  const instance = basicLightbox.create(
+    `<img src="${e.target.dataset["source"]}"/>`
+  );
+
+  instance.show();
+
+  window.addEventListener("keydown", function (e) {
+    if (e.code !== "Escape") {
+      return;
+    }
+    instance.close();
+  });
 }
