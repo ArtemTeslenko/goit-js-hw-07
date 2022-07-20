@@ -21,29 +21,19 @@ const markup = galleryItems
 
 galleryEl.innerHTML = markup;
 
-galleryEl.addEventListener("click", onGallaryItemClick);
-window.addEventListener("keydown", onKeyDown);
+galleryEl.addEventListener("click", fuckingInstance);
 
-function onGallaryItemClick(evt) {
-  evt.preventDefault();
-  checkingEventListenerOnClassBelonging(evt);
-}
-
-function checkingEventListenerOnClassBelonging(e) {
-  if (!e.target.classList.contains("gallery__image")) {
+function fuckingInstance(e) {
+  e.preventDefault();
+  const instance = basicLightbox.create(
+    `<img src="${e.target.dataset["source"]}"/>`
+  );
+  if (e.target.nodeName !== "IMG") {
     return;
   }
-  showImage(e);
-}
-
-function showImage(e) {
-  const instance = basicLightbox.create(`
-      <img src="${e.target.dataset.source}">
-  `);
   instance.show();
-}
 
-// TO FINISH !!!!!!!!!!!!!!!!
-function onKeyDown(eve) {
-  console.log(eve.code);
+  window.addEventListener("keydown", function () {
+    instance.close();
+  });
 }
