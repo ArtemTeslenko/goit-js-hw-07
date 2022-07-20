@@ -21,19 +21,22 @@ const markup = galleryItems
 
 galleryEl.innerHTML = markup;
 
-galleryEl.addEventListener("click", fuckingInstance);
+galleryEl.addEventListener("click", onPictureClick);
 
-function fuckingInstance(e) {
+function onPictureClick(e) {
   e.preventDefault();
-  const instance = basicLightbox.create(
-    `<img src="${e.target.dataset["source"]}"/>`
-  );
+  console.log(e.target.nodeName);
   if (e.target.nodeName !== "IMG") {
     return;
-  }
-  instance.show();
+  } else {
+    const instance = basicLightbox.create(
+      `<img src="${e.target.dataset["source"]}"/>`
+    );
 
-  window.addEventListener("keydown", function () {
-    instance.close();
-  });
+    instance.show();
+
+    window.addEventListener("keydown", function () {
+      instance.close();
+    });
+  }
 }
