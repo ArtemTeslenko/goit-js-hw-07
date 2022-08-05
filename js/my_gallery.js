@@ -1,3 +1,5 @@
+//в масиві зображень однаковий опис - це не дублювання коду, передбачається, що мають прийти різні зображення з різними альтами. Дякую за увагу 🐹🐹🐹
+
 const galleryItems = [
   {
     original: "https://source.unsplash.com/random/1280x854?capybara=1",
@@ -69,15 +71,27 @@ function onImgClick(e) {
 
 function createNewImg(e) {
   const wholeImg = document.createElement("img");
+  const description = document.createElement("span");
 
   wholeImg.src = e.target.src;
   wholeImg.classList = "gallery_whole-img";
+  description.textContent = e.target.alt;
+  description.classList = "gallery_description";
+
   overlayEl.appendChild(wholeImg);
+  overlayEl.appendChild(description);
 
   overlayEl.addEventListener("click", deleteNewImg);
+  window.addEventListener("keydown", function (e) {
+    if (e.code !== "Escape") {
+      return;
+    }
+    deleteNewImg();
+  });
 
   function deleteNewImg() {
     wholeImg.remove();
+    description.remove();
     overlayEl.classList.remove("is-active");
   }
 }
