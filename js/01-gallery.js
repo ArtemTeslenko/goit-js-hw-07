@@ -38,10 +38,18 @@ function openModal(e) {
 
   instance.show();
 
-  window.addEventListener("keydown", function (e) {
+  window.addEventListener("keydown", escPress);
+
+  function escPress(e) {
     if (e.code !== "Escape") {
       return;
     }
+    console.log("esc");
+    closeModal();
+  }
+
+  function closeModal() {
     instance.close();
-  });
+    window.removeEventListener("keydown", escPress);
+  }
 }

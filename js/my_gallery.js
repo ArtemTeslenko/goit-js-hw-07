@@ -82,16 +82,20 @@ function createNewImg(e) {
   overlayEl.appendChild(description);
 
   overlayEl.addEventListener("click", deleteNewImg);
-  window.addEventListener("keydown", function (e) {
+
+  window.addEventListener("keydown", keyPress);
+
+  function keyPress(e) {
     if (e.code !== "Escape") {
       return;
     }
     deleteNewImg();
-  });
+  }
 
   function deleteNewImg() {
     wholeImg.remove();
     description.remove();
     overlayEl.classList.remove("is-active");
+    window.removeEventListener("keydown", keyPress);
   }
 }
